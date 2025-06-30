@@ -1,0 +1,35 @@
+<!-- Minimal HTML + Tailwind -->
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>KKN UDB Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-4">
+    <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl font-bold mb-4">Login KKN UDB</h1>
+        <input id="user" placeholder="Username" class="border p-2 w-full mb-2">
+        <input id="pass" type="password" placeholder="Password" class="border p-2 w-full mb-4">
+        <button onclick="login()" class="bg-blue-600 text-white px-4 py-2 rounded">Login</button>
+        <pre id="output" class="mt-4 text-sm"></pre>
+    </div>
+    <script>
+        async function login() {
+            const res = await fetch("https://kkn-api-backend.vercel.app/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: document.getElementById("user").value,
+                    password: document.getElementById("pass").value
+                })
+            });
+            const data = await res.json();
+            document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+
+</html>
